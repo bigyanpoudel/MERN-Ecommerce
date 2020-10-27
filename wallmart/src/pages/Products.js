@@ -8,7 +8,9 @@ import {LinkContainer} from 'react-router-bootstrap';
 import {Link,Redirect} from 'react-router-dom';
 import {isEmpty} from '../utils/isEmpty';
 import {CREATE_PRODUCT_RESET,UPDATE_PRODUCT_RESET} from '../store/action/actionTypes';
-const Products = ({history}) => {
+import Paginate from '../component/Paginate';
+const Products = ({history,match}) => {
+    const pageNumber = match.params.pageNumber;
     const {auth,productList,product} = useSelector(state=>{
         return{
             auth:state.auth,
@@ -18,7 +20,7 @@ const Products = ({history}) => {
     });
   
     const [redirect,setRedirect] = useState(false);
-    const {loading,error,products,success}=productList;
+    const {loading,error,products,success,pages,pageNumber : page}=productList;
     const {isAuthenticated,userInfo}= auth;
     const {loading : createLoading,success : createSuccess,error :createError,createdProduct} = product;
     const dispatch = useDispatch();
@@ -31,10 +33,10 @@ const Products = ({history}) => {
        {
            history.push(`/admin/product/${createdProduct._id}/edit`)
        }else{
-           dispatch(getProducts());
+           dispatch(getProducts('',pageNumber));
            dispatch({type: UPDATE_PRODUCT_RESET});
        }
-        },[dispatch,history,isAuthenticated,userInfo,success,createdProduct,createSuccess]);
+        },[dispatch,history,isAuthenticated,userInfo,success,createdProduct,createSuccess,pageNumber]);
 if(redirect)
 {
     return <Redirect to={`/signin`}/>
@@ -65,6 +67,7 @@ if(redirect)
               </Row>
                 {createError && <Message variant="danger">{createError}</Message>}
                {loading || createLoading? (<Loader/>) : error ? (<Message>{error}</Message>) :
+               <>
                  <Table striped hover bordered responsive className="table-sm">
                      <thead>
                          <tr>
@@ -104,6 +107,8 @@ if(redirect)
                     
                    
                  </Table> 
+                    <Paginate pages={pages} page={page} isAdmin={true} />
+                 </>
             }            
             
         </Container>

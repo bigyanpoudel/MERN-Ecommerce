@@ -7,6 +7,7 @@ import {getProduct,productReview} from '../store/action/productActionCreator';
 import Message from '../component/Message';
 import Loader from '../component/Loader';
 import {PRODUCT_REVIEW_RESET} from '../store/action/actionTypes';
+import UseMeta from '../component/UseMeta';
 const Product = ({match,history}) => {
     const [quantity,setQuantity] = useState(1);
     const [rating,setRating] = useState(0);
@@ -46,6 +47,7 @@ const Product = ({match,history}) => {
     }
     return (
         <>
+        <UseMeta title={product.name}/>
             <Link to="/" className="btn btn-light my-2">Go back</Link>
             {loading ? 
             ( <Loader/> ): error ? <Message variant="danger">{error}</Message>:
@@ -135,7 +137,7 @@ const Product = ({match,history}) => {
                             <ListGroup variant="flush">
                                 {
                                     product.reviews && product.reviews.map(review=>
-                                        <ListGroup.Item>
+                                        <ListGroup.Item key={review._id}>
                                             <strong>{review.name}</strong>
                                             <Rating value={review.rating}/>
                                             <p>{review.createdAt.substring(0,10)}</p>

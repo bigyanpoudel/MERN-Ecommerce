@@ -11,6 +11,10 @@ const ReviewSchema = new mongoose.Schema({
     comment:{
         type: String,
         required: true
+    },
+    user:{
+         type: String,
+        required: true 
     }
 },{
     timestamps: true
@@ -61,7 +65,7 @@ category:{
     type: String,
     required: true
 },
-review: [ReviewSchema]
+reviews: [ReviewSchema]
 },{
     timestamps: true
 });

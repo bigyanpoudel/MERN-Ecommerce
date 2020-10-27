@@ -1,9 +1,10 @@
 import * as actionType from '../action/actionTypes';
 const initialState = {
-    loading:false,
+    loading:true,
     products: [],
     error: null,
-    product: { reviews:[]}
+    product: { reviews:[]},
+    topProducts:[]
 }
 
 export const productReducer = (state=initialState,action)=>{
@@ -18,7 +19,9 @@ export const productReducer = (state=initialState,action)=>{
             return{
                 ...state,
                 loading:false,
-                products: action.payload
+                products: action.payload.products,
+                pageNumber: action.payload.pageNumber,
+                pages: action.payload.pages
             }
             case actionType.SET_PRODUCTS_FAIL:
                 return{
@@ -70,12 +73,23 @@ export const productReducer = (state=initialState,action)=>{
         case actionType.PRODUCT_REVIEW_FAIL:
             return {
                 ...state,
-                reviewError: action.payload
+                reviewError: action.payload,
+                loading: false
             }
         case actionType.PRODUCT_REVIEW_RESET:
             return{
                 ...state,
                 reviewSuccess: false
+            }
+        case actionType.GET_TOP_PRODUCT_SUCCESS:
+            return{
+                ...state,
+                topProducts : action.payload
+            }
+        case actionType.GET_TOP_PRODUCT_FAIL:
+            return{
+                ...state,
+                error: action.payload
             }
         default:
             return state;

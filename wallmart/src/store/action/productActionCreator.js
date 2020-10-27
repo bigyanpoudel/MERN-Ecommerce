@@ -1,11 +1,12 @@
 import axios from 'axios';
 import * as actionType from './actionTypes';
-export const getProducts = ()=> async(dispatch)=>{
+export const getProducts = (keyword = '',pageNumber = '')=> async(dispatch)=>{
     try{  
         dispatch({
             type:actionType.SET_LOADING
         });
-        const res = await axios.get("/api/products");
+       
+        const res = await axios.get(`/api/products/?keyword=${keyword}&pageNumber=${pageNumber}`);
         console.log(res.data);
         dispatch(
             {
@@ -117,7 +118,9 @@ export const productReview =(id,review)=>  async(dispatch)=>{
         dispatch({
             type:actionType.PRODUCT_REVIEW_REQUEST
         });
-        await axios.put(`/api/products/${id}`,review);
+        console.log(id);
+        debugger;
+        await axios.put(`/api/products/${id}/review`,review);
         dispatch(
             {
                 type: actionType.PRODUCT_REVIEW_SUCCESS
@@ -128,6 +131,26 @@ export const productReview =(id,review)=>  async(dispatch)=>{
        
         dispatch({
             type:actionType.PRODUCT_REVIEW_FAIL,
+            payload: err.response && err.response.data.message ? 
+                    err.response.data.message :err.message
+        })
+    }
+}
+
+
+export const getTopProduct =()=>  async(dispatch)=>{
+    try{
+        const res = await axios.get(`/api/products/top`);
+        dispatch(
+            {
+                type: actionType.GET_TOP_PRODUCT_SUCCESS,
+                 payload: res.data
+            }
+        );
+    }catch(err){
+       
+        dispatch({
+            type:actionType.GET_TOP_PRODUCT_FAIL,
             payload: err.response && err.response.data.message ? 
                     err.response.data.message :err.message
         })

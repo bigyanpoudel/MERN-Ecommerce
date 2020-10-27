@@ -4,6 +4,7 @@ import {Row,Col,Button,ListGroup,Form,Image,Card} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import  { addToCart,removeFromCart} from '../store/action/actionCreator'; 
 import Message from '../component/Message';
+import UseMeta from '../component/UseMeta';
 const Cart = ({match,location,history}) => {
     const productId = match.params.id;
     const qty = location.search ? Number(location.search.split('=')[1]):1;
@@ -28,11 +29,12 @@ const Cart = ({match,location,history}) => {
     const {cartItems} = cart;
     return (
         <div>
+            <UseMeta title="Wallmart | Cart"/>
             <Row>
             <Col md={8}>
                 <h1>Your Shopping Cart</h1>
                 { cartItems.length === 0 ? ( <Message>
-                    Your cart is empty . <Link to='/'><Button className="btn btn-block">Go Back</Button></Link>
+                    Your cart is empty . <Link to='/'>Go Back</Link>
                 </Message>):(
                      <ListGroup variant='flush'>
                          {

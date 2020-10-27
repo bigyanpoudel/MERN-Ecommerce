@@ -3,6 +3,8 @@ import {LinkContainer} from 'react-router-bootstrap';
 import {Navbar, Nav,Container,NavDropdown} from 'react-bootstrap';
 import {useSelector,useDispatch} from 'react-redux';
 import {logout} from '../store/action/actionCreator';
+import SearchBox from './SearchBox';
+import {Route} from 'react-router-dom';
 const Header = () => {
     const auth = useSelector(state=> state.auth);
     const {isAuthenticated,userInfo} = auth;
@@ -17,9 +19,17 @@ const Header = () => {
                 <LinkContainer to="/">
                 <Navbar.Brand>WallMart</Navbar.Brand>
                 </LinkContainer>
+                 <Route render={({history})=> <SearchBox history={history}/>}/>
+                 
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
+               
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ml-auto">
+                         <LinkContainer to='/'>
+                    <Nav.Link>
+                        Home
+                    </Nav.Link>
+                    </LinkContainer>
                         <LinkContainer to='/cart'>
                     <Nav.Link>
                         <i className="fas fa-shopping-cart pr-1"/>

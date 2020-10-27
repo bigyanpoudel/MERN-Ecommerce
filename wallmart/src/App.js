@@ -29,6 +29,7 @@ function App() {
           <Route exact path="/admin/users" component={Users}/>
           <Route exact path="/admin/orders" component={AdminOrders}/>
           <Route exact path="/admin/products" component={Products}/>
+          <Route exact path="/admin/products/:pageNumber" component={Products}/>
           <Route exact path="/myorder" component={MyOrder}/>
           <Route exact path='/order/:id' component={Order}/>
           <Route exact path="/placeorder" component={PlaceOrder}/>
@@ -39,6 +40,9 @@ function App() {
           <Route exact path="/register" component={Register}/>
           <Route  path="/product/:id" component={Product}/>
           <Route path="/cart/:id?" exact component={Cart}/>
+           <Route exact path="/search/:keyword" component={Home}/>
+            <Route exact path="/search/:keyword/page/:pageNumber" component={Home}/>
+             <Route exact path="/page/:pageNumber" component={Home}/>
           <Route exact path="/" component={Home}/>
         </Switch>
       </Layout>

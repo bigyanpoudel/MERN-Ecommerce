@@ -70,6 +70,7 @@ const Login = ({location,history}) => {
                     </Link>
                 </Col>
             </Row>
+            
             </>
     }
         </FormContainer>

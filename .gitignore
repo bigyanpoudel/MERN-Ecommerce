@@ -1,3 +1,5 @@
 /node_modules/
 /config/config.env/
-/.vscode
+/.vscode/
+/data/
+/seeders.js/

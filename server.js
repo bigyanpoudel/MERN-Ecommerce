@@ -4,6 +4,9 @@ import {connectDB} from './config/db.js';
 import cors from 'cors';
 import path from 'path';
 import morgan from 'morgan';
+import mongoSanitize from 'express-mongo-sanitize';
+import helmet from 'helmet';
+import xss from 'xss-clean';
 //env configuration
 dotenv.config({
     path:'./config/config.env'
@@ -18,6 +21,9 @@ if(process.env.NODE_ENV === 'development')
 }
 app.use(express.json());
 app.use(cors());
+app.use(mongoSanitize());
+app.use(helmet());
+app.use(xss());
 
   const __direname = path.resolve();
  

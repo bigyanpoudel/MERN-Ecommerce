@@ -47,7 +47,7 @@ const Product = ({match,history}) => {
     }
     return (
         <>
-        <UseMeta title={product.name}/>
+            <UseMeta title={product.name}/>
             <Link to="/" className="btn btn-light my-2">Go back</Link>
             {loading ? 
             ( <Loader/> ): error ? <Message variant="danger">{error}</Message>:

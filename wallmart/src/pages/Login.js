@@ -43,9 +43,11 @@ const Login = ({location,history}) => {
     },[history,redirect,isAuthenticated])
     return (
         <FormContainer>
-            <h1>Sign In</h1>
+            {loading ? <Loader/> :
+            <>
+             <h1>Sign In</h1>
             {error && <Message variant="danger">{error}</Message>}
-            {loading && <Loader/>}
+            
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId='email'>
                     <Form.Label>Enter a email</Form.Label>
@@ -68,6 +70,8 @@ const Login = ({location,history}) => {
                     </Link>
                 </Col>
             </Row>
+            </>
+    }
         </FormContainer>
     )
 }

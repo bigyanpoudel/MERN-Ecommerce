@@ -24,7 +24,6 @@ const rootReducer = combineReducers({
     orderDeliver : orderDeliver
 });
 const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
-console.log(cartItemsFromStorage);
 const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')):null;
 const auth = user ? true : false
 if(user)

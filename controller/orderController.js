@@ -1,6 +1,9 @@
 import asyncHandler from 'express-async-handler';
 import Order from '../models/Order.js';
 import mongoose from 'mongoose';
+//@desc adding order
+//@route POST api/v1/order
+//@access  private
 export const addOrder = asyncHandler(async(req,res,next)=>{
     const {orderItems,shippingAddress,paymentMethod,taxPrice,itemsPrice,shippingPrice,totalPrice} = req.body;
     if(orderItems && orderItems.length === 0)
@@ -19,10 +22,13 @@ export const addOrder = asyncHandler(async(req,res,next)=>{
             paymentMethod
         });
        const orderCreated = await  order.save();
-        res.json(orderCreated);
+        res.stats(200).json(orderCreated);
     }
 });
 
+//@desc getting order item
+//@route GET api/v1/order/:id
+//@access  private
 export const getOrderItem = asyncHandler(async(req,res,next)=>{
     const orderItem = await Order.findById(req.params.id).populate('user','name email');
     if(!orderItem)
@@ -30,12 +36,15 @@ export const getOrderItem = asyncHandler(async(req,res,next)=>{
         res.status(400);
         throw new Error('No order found');
     }
-    res.json(orderItem);
+    res.status(200).json(orderItem);
 })
+
+//@desc updating order pay
+//@route PUT api/v1/order/:id/pay
+//@access  private
 
 export const updateOrderPayment = asyncHandler(async(req,res,next)=>{
     const order = await Order.findById(req.params.id);
-    console.log(req.body);
     if(!order)
     {
         res.status(400);
@@ -50,25 +59,23 @@ export const updateOrderPayment = asyncHandler(async(req,res,next)=>{
         email_address: req.body.payer.email_address
     }
     const updatedOrder = await order.save();
-    res.json(updatedOrder);
+    res.status(200).json(updatedOrder);
    
 })
 
 export const getMyOrders = asyncHandler(async(req,res,next)=>{
  const orders = await Order.find({user: req.user._id});
- res.json(orders);
+ res.status(200).json(orders);
 })
 
 export const getAllOrders = asyncHandler(async(req,res,next)=>{
-    console.log("order")
     const orders = await Order.find({}).populate('user','id name');
     if(!orders)
     {
         res.status(401);
         throw new Error('no order');
     }
-    console.log(orders);
-    res.json(orders);
+    res.stats(200).json(orders);
 })
 
 export const putOrderDeliver= asyncHandler(async(req,res,next)=>{
@@ -78,7 +85,7 @@ export const putOrderDeliver= asyncHandler(async(req,res,next)=>{
         order.isDelivered = true,
         order.deliveredAt = Date.now();
         const updatedOrder = await order.save();
-        res.json(updatedOrder);
+        res.status(200).json(updatedOrder);
     }else{
         res.status(404);
         throw new Error('Order not found');

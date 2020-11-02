@@ -5,7 +5,7 @@ import {getMyOrder} from '../store/action/actionCreator';
 import Loader from '../component/Loader'; 
 import Message from '../component/Message';
 import {Link} from 'react-router-dom';
-import {RESET_ORDER} from '../store/action/actionTypes'
+
 const MyOrder = ({history}) => {
     const {auth,myOrderDetail} = useSelector(state=>{
         return{

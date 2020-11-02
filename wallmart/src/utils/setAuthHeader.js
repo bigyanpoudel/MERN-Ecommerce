@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const setAuthHeader = (token)=>{
-    console.log(token);
     if(token)
     {
         //apply to every user

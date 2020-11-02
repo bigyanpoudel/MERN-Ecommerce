@@ -8,12 +8,11 @@ export const  login = asyncHandler(async(req,res,next)=>{
         res.status(404);
         throw new Error('User nor registered');
     }
-    const isMatch = await user.matchPassword(password);
-    console.log(isMatch)
+    const isMatch = await user.matchPassword(password)
     if(user && isMatch)
     {
         const token = await user.getJwtToken();
-        res.json({_id:user._id,
+        res.status(200).json({_id:user._id,
             name:user.name,
             email:user.email,
             isAdmin:user.isAdmin,
@@ -38,21 +37,20 @@ export const register =asyncHandler(async(req,res,next)=>{
         password,
         isAdmin
     });
-    res.json(user);
+    res.status(200).json(user);
 
 })
 
 
 
 export const profile = asyncHandler(async(req,res,next)=>{
-    console.log('profile');
-    res.json(req.user);
+    res.status(200).json(req.user);
 });
 
 //@access private/admin
 export const getAllUser = asyncHandler(async(req,res,next)=>{
     const user = await User.find().sort('createdAt');
-    res.json(user)
+    res.status(200).json(user)
 });
 
 //@access private/admin
@@ -75,7 +73,7 @@ export const getUserById =asyncHandler(async(req,res,next)=>{
         res.status(401);
         throw new Error('User not found');
     }
-    res.json(user);
+    res.status(200).json(user);
 });
 
 export const updateUserInfo = asyncHandler(async(req,res,next)=>{
@@ -89,12 +87,10 @@ export const updateUserInfo = asyncHandler(async(req,res,next)=>{
     user.email = req.body.email || user.email;
     user.name = req.body.name || user.email;
     user.isAdmin = req.body.isAdmin;
-    console.log(user);
     const createdUser = await user.save();
-    console.log(createdUser)
     if(createdUser)
     {
-        res.json({
+        res.status(200).json({
             _id: createdUser._id,
             name:createdUser.name,
             email: createdUser.email,

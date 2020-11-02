@@ -7,7 +7,6 @@ export const addToCart = (id,qty)=> async(dispatch,getState)=>{
         
         const res = await axios.get(`/api/products/${id}`);
         const {product} = res.data;
-        console.log(res.data)
         const item = {
             product: product._id,
             name: product.name,
@@ -16,14 +15,13 @@ export const addToCart = (id,qty)=> async(dispatch,getState)=>{
             countInStock: product.countInStock,
             qty
         }
-        console.log(item);
+       
         dispatch({
             type:actionType.ADD_TO_CART,
             payload:item
         });
         localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
     }catch(err){
-        console.log(err.response);
         
     }
 }
@@ -66,16 +64,15 @@ export const userLogin = (loginInfo)=> async (dispatch)=>{
         dispatch({
             type: actionType.USER_LOGIN_REQUEST
         });
-        debugger;
+       
        
         const res = await axios.post('api/v1/login',loginInfo);
-        console.log(res.data);
+        
         setAuthHeader('Bearer ' + res.data.token);
         dispatch(setAuth(res.data));
         localStorage.setItem('user', JSON.stringify(res.data));
     }catch(err){
-        console.log(err.message);
-        console.log(err.response.message)
+       
         dispatch({
             type:actionType.SET_ERROR,
             payload: err.response && err.response.data.message ? 
@@ -96,8 +93,6 @@ export const userRegister = (user,history)=> async(dispatch)=>{
         });
          history.push('/signin');
     }catch(err){
-        console.log(err.message);
-        console.log(err.response.message)
         dispatch({
             type:actionType.SET_ERROR,
             payload: err.response && err.response.data.message ? 
@@ -111,16 +106,13 @@ try{
     dispatch({
         type:actionType.SET_PROFILE_LOADING
     });
-    debugger;
     const res = await axios.get('/api/v1/profile');
-    console.log(res.data);
-    
     dispatch({
         type:actionType.SET_PROFILE,
         payload: res.data
     })
 }catch(err){
-    console.log(err.message);
+
     dispatch({
         type:actionType.SET_PROFILE_ERROR,
         payload: err.response && err.response.data.message ? 
@@ -135,7 +127,7 @@ export const addOrder = (data)=> async(dispatch)=>{
             type:actionType.SET_ORDER_REQUEST
         });
         const res = await axios.post('api/v1/order',data);
-        console.log(res.data);
+       
         dispatch({
             type:actionType.SET_ORDER_SUCCESS,
             payload:res.data
@@ -145,7 +137,7 @@ export const addOrder = (data)=> async(dispatch)=>{
         })
         localStorage.removeItem('cartItems');
     }catch(err){
-        console.log(err.response.message);
+
         dispatch({
             type:actionType.SET_ORDER_FAIL,
             payload: err.response && err.response.data.message ? 
@@ -160,7 +152,7 @@ export const getOrderById = (id)=> async(dispatch)=>{
         });
         
         const res = await axios.get(`/api/v1/order/${id}`);
-        console.log(res.data);
+       
         dispatch({
             type: actionType.GET_ORDER_SUCCESS,
             payload: res.data
@@ -201,7 +193,7 @@ export const getMyOrder = ()=> async(dispatch)=>{
         });
       
         const res = await axios.get('/api/v1/order/myorders');
-        console.log(res.data);
+
         dispatch({
             type:actionType.GET_MY_ORDER_SUCCESS,
             payload:res.data
@@ -222,14 +214,14 @@ export const getUserList = ()=> async(dispatch) =>{
         });
       
         const res = await axios.get('/api/v1/');
-        console.log(res.data);
+       
         
         dispatch({
             type:actionType.USER_LIST_SUCCESS,
             payload: res.data
         })
     }catch(err){
-        console.log(err.message);
+
         dispatch({
             type:actionType.USER_LIST_FAIL,
             payload: err.response && err.response.data.message ? 
@@ -278,14 +270,11 @@ export const updateUser =(data)=>async(dispatch)=>{
         dispatch({
             type: actionType.PUT_USER_REQUEST
         })
-        console.log(data);
-        debugger;
-        const res = await axios.put(`/api/v1/${data.id}`,data.user);
-        console.log(res.data);
+        await axios.put(`/api/v1/${data.id}`,data.user);
+        
         dispatch({
             type: actionType.PUT_USER_SUCCESS
         })
-        debugger;
     }catch(err){
         dispatch({
             type:actionType.PUT_USER_FAIL,
@@ -300,9 +289,9 @@ export const getAllOrders = ()=>async(dispatch)=>{
         dispatch({
             type: actionType.GET_ORDERS_REQUEST
         })
-        debugger;
+      
         const res = await axios.get('/api/v1/order/all');
-        console.log(res.data);
+       
         dispatch({
             type: actionType.GET_ORDERS_SUCCESS,
             payload: res.data

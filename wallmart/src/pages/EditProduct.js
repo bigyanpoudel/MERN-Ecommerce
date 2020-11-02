@@ -93,9 +93,11 @@ const EditProduct = ({match,history}) => {
        <Link to='/admin/products'>
         <Button className="btn btn-light">Go Back</Button>
        </Link>
+   
         <FormContainer>
            
             <h1>Edit Product</h1>
+             {updateError && <Message>{updateError}</Message>}
             {
                 loading  || updateLoading ? <Loader/> : error ? <Message variant="danger">{error}</Message>: 
             <Form onSubmit={submitHandler}>

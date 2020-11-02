@@ -2,7 +2,6 @@ import React from 'react'
 import {Pagination} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap';
 const Paginate = ({pages,page,isAdmin=false,keyword=''}) => {
-    console.log(isAdmin);
     return (
         pages > 1 ? <Pagination className='justify-center'>
           { page > 1 ? <LinkContainer  to={ !isAdmin ? (keyword ? `/search/${keyword}/page/${page-1}`: `/page/${page - 1}`):

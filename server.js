@@ -24,10 +24,6 @@ app.use(cors());
 app.use(mongoSanitize());
 app.use(helmet());
 app.use(xss());
-
-  const __direname = path.resolve();
- 
-  app.use('/uploads',express.static(path.join(__direname,'/uploads')));
 //importing routes
 import productRoutes from './routes/product.js';
 import userRoutes from './routes/user.js';
@@ -41,6 +37,15 @@ app.use('/api/v1/upload',fileUploadRoute);
 app.get('/api/v1/config/paypal',(req,res)=>{
   res.send(process.env.PAYPAL_CLIENT_ID);
 })
+  const __dirname = path.resolve();
+  app.use('/uploads',express.static(path.join(__dirname,'/uploads')));
+  if(process.env.NODE_ENV === 'production')
+  {
+    app.use(express.static(path.join(__dirname,'wallmart/build')));
+    app.get('*',(req,res)=>{
+      res.sendFile(path.resolve(__dirname,'wallmart','build','index.html'));
+    });
+  }
 //import error
 import {errorHandler,routeError} from './middleware/errorHandler.js';
 app.use(routeError);

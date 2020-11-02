@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import {Row,Col,Spinner} from 'react-bootstrap';
+import {Row,Col} from 'react-bootstrap';
 import Product from '../component/Product';
 import {useSelector,useDispatch} from 'react-redux';
 import {getProducts,getTopProduct} from '../store/action/productActionCreator';
@@ -23,7 +23,7 @@ const Home = ({match}) => {
         dispatch(getProducts(keyword,pageNumber));
     },[dispatch,keyword,pageNumber]);
  const {products,loading,error,pages,pageNumber : page,topProducts} = productList;
-    console.log(topProducts);
+   
     return (
         <>
         <UseMeta title="welcome to wallmart | Home" 
@@ -32,7 +32,7 @@ const Home = ({match}) => {
         {loading ? 
          <Loader/> : error ? <Message variant="danger">{error}</Message>:
             <>
-            {!keyword ? <ProductCarousel products={topProducts}/> : <Link to="/" className="btn btn-light">Go Back</Link>}
+           {!keyword ? <ProductCarousel products={topProducts}/> : <Link to="/" className="btn btn-light">Go Back</Link>}
            {keyword ? (<h3>Searched Product</h3>) : <h2>Our Latest Product</h2>}
           
             <Row>

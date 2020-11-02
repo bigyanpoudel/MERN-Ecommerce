@@ -7,7 +7,7 @@ import {getProducts,getProduct,deleteProduct,
 import {admin} from '../middleware/auth.js';
 import protect from '../middleware/auth.js';
 router.route('/top').get(getTopProducts);
-router.route('/:id/review').put(protect,admin,productReview);
+router.route('/:id/review').put(protect,productReview);
 router.route('/').get(getProducts).post(protect,admin,createProduct);
 router.route('/:id').get(getProduct).delete(protect,admin,deleteProduct).put(protect,admin,updateProduct);
 

@@ -8,7 +8,7 @@ import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
 import xss from 'xss-clean';
 //env configuration
-dotenv.config({
+config({
     path:'./config/config.env'
 });
 

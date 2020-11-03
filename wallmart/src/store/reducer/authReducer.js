@@ -3,7 +3,7 @@ import {isEmpty} from '../../utils/isEmpty';
 const initialState = {
     isAuthenticated: false,
     loading: false,
-    userInfo:null
+    userInfo:{}
 }
 
 const authReducer = (state=initialState,action)=>{

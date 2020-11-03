@@ -149,7 +149,7 @@ const Product = ({match,history}) => {
                                 <ListGroup.Item>
                                     <h4>Write a review</h4>
                                     {
-                                        userInfo._id ? (
+                                       uerInfo && userInfo._id ? (
                                         <Card><Form onSubmit={addCommentHandler}>
                                             <Form.Group controlId="rating">
                                                 <Form.Label>Rating</Form.Label>

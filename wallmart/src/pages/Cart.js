@@ -20,7 +20,7 @@ const Cart = ({match,location,history}) => {
             cart: state.cart
         }});
     const removeFromCartHandler = (id,event)=>{
-        console.log("remove");
+       
        dispatch(removeFromCart(id))
     }
     const checkOutHandler = ()=>{

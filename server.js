@@ -20,7 +20,9 @@ if(process.env.NODE_ENV === 'development')
 app.use(express.json());
 app.use(cors());
 app.use(mongoSanitize());
-app.use(helmet());
+app.use(helmet({
+  contentSecurityPolicy: false,
+}));
 app.use(xss());
 //importing routes
 import productRoutes from './routes/product.js';

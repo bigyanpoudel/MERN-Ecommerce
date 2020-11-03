@@ -1,3 +1,14 @@
 /node_modules/
 /config/config.env/
 /.vscode/
+
+/wallmart/build/
+/coverage
+
+.DS_Store
+.env.local
+.env.production.local
+.env.test.local
+.env.development.local
+
+

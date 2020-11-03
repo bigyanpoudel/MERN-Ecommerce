@@ -29,7 +29,8 @@
     "client": "npm start --prefix wallmart",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node seeders.js",
-    "data:destroy": "node seeders.js -d"
+    "data:destroy": "node seeders.js -d",
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix wallmart && npm run build --prefix wallmart"
   },
   "author": "",
   "license": "ISC"

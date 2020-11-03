@@ -11,4 +11,5 @@
 .env.test.local
 .env.development.local
 
+.debug.log
 

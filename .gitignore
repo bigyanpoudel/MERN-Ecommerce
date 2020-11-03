@@ -1,6 +1,6 @@
 /node_modules/
 /config/config.env/
-/.vscode/
+.vscode
 
 /wallmart/build/
 /coverage

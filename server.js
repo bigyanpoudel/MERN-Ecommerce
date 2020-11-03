@@ -1,4 +1,5 @@
 import express from 'express';
+import  dotenv from 'dotenv';
 import {connectDB} from './config/db.js';
 import cors from 'cors';
 import path from 'path';
@@ -6,8 +7,8 @@ import morgan from 'morgan';
 import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
 import xss from 'xss-clean';
-
-
+//env configuration
+dotenv.config();
 
 connectDB();
 const app = express();

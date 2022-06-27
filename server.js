@@ -40,6 +40,9 @@ app.get("/api/v1/config/paypal", (req, res) => {
     "AbpOOsa90K4GnjkxdTW9f4sb0t4cp5nAbn4hfUEhN9IAYDVWoJnZO08leQdVdhuxTVB9Brwju1i9OaQc"
   );
 });
+
+
+
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 if (process.env.NODE_ENV === "production") {

@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+  #mongodb conatiner
+  mongo_db:
+    container_name: mongo_db_container
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+    ports:
+      - 27067:27017
+    expose:
+      - "27017"
+    
+  #api container
+  node-api:
+    container_name: ecommerce-node-api
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/user/src/app
+    depends_on:
+      - mongo_db
+    env_file:
+      - ./config/config.env
+    
+    
+volumes:
+  mongo_db:

@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 
 export const connectDB = async () => {
+  console.log("MONGODB_URL", process.env.MONGODB_URL);
   const conn = await mongoose.connect(
-    // "mongodb+srv://bgyaan123:iamur321@cluster0.99q7m.mongodb.net/ecommerce?retryWrites=true&w=majority",
-    "mongodb://localhost:27017/fashion",
+    //  "mongodb+srv://bigyanpoudel:hello321@cluster0.ak2bu.azure.mongodb.net/ecommerce?retryWrites=true&w=majority",
+    process.env.MONGODB_URL,
     {
       useCreateIndex: true,
       useFindAndModify: false,
